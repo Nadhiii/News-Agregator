@@ -1,4 +1,24 @@
-// Add this route after the home route
+require('dotenv').config();
+const express = require('express');
+const axios = require('axios');
+const path = require('path');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Set up EJS as the view engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Home route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'index.html'));
+});
+
+// News route
 app.get('/news', async (req, res) => {
   try {
     const searchQuery = req.query.q;
@@ -39,7 +59,8 @@ app.get('/news', async (req, res) => {
     res.render('results', {
       articles,
       searchQuery,
-      searchType: searchType.charAt(0).toUpperCase() + searchType.slice(1)
+      searchType: searchType.charAt(0).toUpperCase() + searchType.slice(1),
+      error: null
     });
     
   } catch (error) {
@@ -52,4 +73,8 @@ app.get('/news', async (req, res) => {
       error: 'Failed to fetch news. Please try again.'
     });
   }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
 });

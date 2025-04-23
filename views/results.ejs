@@ -16,7 +16,11 @@
     </div>
     
     <div class="articles">
-      <% if (articles && articles.length > 0) { %>
+      <% if (error) { %>
+        <div class="no-results">
+          <p><%= error %></p>
+        </div>
+      <% } else if (articles && articles.length > 0) { %>
         <% articles.forEach(article => { %>
           <div class="article-card">
             <h2><a href="<%= article.url %>" target="_blank"><%= article.title %></a></h2>
