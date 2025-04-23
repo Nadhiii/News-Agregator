@@ -42,7 +42,7 @@ app.get('/news', async (req, res) => {
       case 'category':
         apiUrl += 'top-headlines';
         params.category = searchQuery.toLowerCase();
-        params.country = 'us'; // Default to US news
+        params.country = 'us';
         break;
       case 'keyword':
       default:
@@ -54,7 +54,7 @@ app.get('/news', async (req, res) => {
     
     // Make the API request
     const response = await axios.get(apiUrl, { params });
-    const articles = response.data.articles.slice(0, 10); // Get top 10 articles
+    const articles = response.data.articles.slice(0, 10);
     
     res.render('results', {
       articles,
