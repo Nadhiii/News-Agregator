@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News Results</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>News Results</h1>
+    <a href="/" class="back-button">Back to Search</a>
+    
+    <div class="search-info">
+      <p>Showing results for: <strong><%= searchType %>: <%= searchQuery %></strong></p>
+    </div>
+    
+    <div class="articles">
+      <% if (articles && articles.length > 0) { %>
+        <% articles.forEach(article => { %>
+          <div class="article-card">
+            <h2><a href="<%= article.url %>" target="_blank"><%= article.title %></a></h2>
+            <p class="source"><%= article.source.name %> - <%= new Date(article.publishedAt).toLocaleDateString() %></p>
+            <p class="description"><%= article.description %></p>
+            <a href="<%= article.url %>" target="_blank" class="read-more">Read more</a>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <div class="no-results">
+          <p>No articles found. Try a different search term.</p>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>
